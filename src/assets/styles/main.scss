@@ -1,0 +1,44 @@
+/* VARIABLES */
+@import './core/colors.scss';
+@import './core/fonts.scss';
+
+/* RESET */
+@import './core/reset.scss';
+
+/* LAYOUT */
+@import './layout/headerMain.scss';
+@import './layout/contentMain.scss';
+@import './layout/footerMain.scss';
+
+/* COMPONENTS */
+@import './components/filters.scss';
+@import './components/listResult.scss';
+
+/* UI ELEMENTS */
+@import './uiElements/pagination.scss';
+
+/* CUSTOM GLOBALS */
+html {
+    height: 100%;
+    box-sizing: border-box;
+}
+*,*:before,*:after {
+  box-sizing: inherit;
+}
+body{
+    font-family: $mainFont;
+    position: relative;
+    margin: 0;
+    padding-bottom: 6rem;
+    min-height: 100%;
+}
+.negative *{
+    color: #fff;
+}
+
+footer{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}

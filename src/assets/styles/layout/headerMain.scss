@@ -1,0 +1,41 @@
+header{
+    background: $mainBlue;
+    font-family: $secondaryFont;
+    height: 60px;
+    > picture{
+        float: left;
+        img{
+            padding: 8px 20px;
+        }
+    }
+
+    > nav{
+        float: right;
+        padding-right: 50px;
+        a{  
+            display: inline-block;
+            font-size: 12px;
+            padding: 24px 15px;
+        }
+        .selected{
+            background: #fff;
+            color: $fontBlue;
+        }
+    }
+
+    > div{
+        border-left: 1px #fff solid;
+        float: right;
+        padding-left: 10px;
+        width: 170px;
+        picture{
+            float: left;
+            padding: 15px 20px;
+        }
+        p{
+            font-size: 12px;
+            line-height: 20px;
+            padding: 10px;
+        }
+    }
+}

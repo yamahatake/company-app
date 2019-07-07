@@ -1,4 +1,7 @@
-# company-app
+Since it's asked for Vue in the job I will use Vue, but could also use React.
+- Used around 15h
+- Used Sass just to show that I know
+
 
 ## Project setup
 ```

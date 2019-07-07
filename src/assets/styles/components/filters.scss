@@ -1,0 +1,60 @@
+#listFilter{
+    float: left;
+    padding-right: 20px;
+    width: 20%;
+    form{
+        background: $lightGray;
+        box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.2);
+        border-radius: 5px;
+        padding: 15px;
+        *{
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            height: 30px;
+            margin-bottom: 15px;
+            padding: 0 5px;
+            width: 100%;
+        }
+        p{
+            color: $fontGrayDark;
+            font-size: 14px;
+            height: auto;
+        }
+        input[type="date"]{
+            background: #fff;
+            padding-left: 30px;
+            position: relative;
+            z-index: 0;
+            &::before{
+                background: transparent url('./assets/images/icon-calendar.png') no-repeat center center;
+                content: "";
+                height: 30px;;
+                left: 0;
+                position: absolute;
+                top: 0;
+                width: 30px;
+                z-index: 1;
+            }
+            &::after{
+                background: transparent url('./assets/images/icon-arrow-blue.png') no-repeat center center;
+                content: "";
+                height: 30px;;
+                right: 0;
+                position: absolute;
+                top: 0;
+                width: 30px;
+                z-index: 1;
+            }
+        }
+        #applyFilters{
+            background: $variantBlue;
+            color: #fff;
+        }
+        #clearFilters{
+            background: $lightYellow;
+            color: #fff;
+            margin: 0;
+        }
+    }
+}

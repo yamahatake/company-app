@@ -1,0 +1,19 @@
+footer{
+    background: $mainBlue;
+    font-family: $secondaryFont;
+    font-size: 12px;
+    padding: 14px;
+    text-align: center;
+    span{
+        border-left:1px #fff solid;
+        padding: 0 10px;
+
+        &:first-child{
+            border:none;
+        }
+    }
+    a{
+        border-left:1px #fff solid;
+        padding: 0 10px;
+    }
+}
