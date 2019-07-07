@@ -13,6 +13,22 @@
             th{
                 font-size: 14px;
                 padding: 0 10px 15px;
+                span{
+                    display: none;
+                    img{
+                        padding: 2px;
+                    }
+                }
+                &.active{
+                    span{
+                        display: inline-block;
+                    }
+                }
+                &.reverse{
+                    span{
+                        transform: rotate(180deg)
+                    }
+                }
             }
         }
         tbody{
