@@ -23,9 +23,13 @@
         }
         input[type="date"]{
             background: #fff;
+            content: attr(placeholder) !important;
             padding-left: 30px;
             position: relative;
             z-index: 0;
+            &:focus{
+                content: "";
+            }
             &::before{
                 background: transparent url('./assets/images/icon-calendar.png') no-repeat center center;
                 content: "";

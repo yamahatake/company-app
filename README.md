@@ -1,3 +1,8 @@
+- Problem with the date format
+
+- Missing: user, pagination, fix dates Z
+
+
 ## Project setup
 ```
 npm install

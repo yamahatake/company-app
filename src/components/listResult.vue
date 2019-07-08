@@ -32,6 +32,7 @@ import _ from 'lodash';
 export default {
   name: 'listResult',
   components: {'pagination':pagination},
+  props: ['startDate', 'endDate'],
   data() {
     return{
       documentList: [],
@@ -42,7 +43,8 @@ export default {
   },
   filters: {
     formatDate: (date) => {
-      let format = new Date (date);
+      const format = new Date (date);
+      //console.log(date);
       return `${("0" + format.getDate()).slice(-2)}-${("0" + (format.getMonth() + 1)).slice(-2)}-${format.getFullYear()}`;
     }
   },
@@ -65,9 +67,13 @@ export default {
   },
   computed: {
     filteredList() {
-      return this.documentList.filter(item => {
+      const list = this.documentList.filter(item => {
         return item.name.includes('.pdf') || item.name.includes('.docx')
-      })
+      });
+      const filterDate = _.filter(list, item => Date.parse(item.date) > Date.parse(this.startDate) && Date.parse(item.date) < Date.parse(this.endDate));
+      let condition = null;
+      this.startDate || this.endDate ? condition = filterDate : condition = list;
+      return condition;
     }
   }
 }
