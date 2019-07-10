@@ -1,19 +1,25 @@
-footer{
+#app > footer{
     background: $mainBlue;
-    font-family: $secondaryFont;
+    font-family: 'Roboto Regular', sans-serif;
     font-size: 12px;
     padding: 14px;
     text-align: center;
-    span{
+    @media (max-width: 768px) {
+        padding: 5px 20px;
+    }
+    a,span{
         border-left:1px #fff solid;
+        display: inline-block;
         padding: 0 10px;
+        white-space: normal;
 
+        @media (max-width: 768px) {
+            margin: 6px 0;
+        }
+    }
+    span{
         &:first-child{
             border:none;
         }
-    }
-    a{
-        border-left:1px #fff solid;
-        padding: 0 10px;
     }
 }

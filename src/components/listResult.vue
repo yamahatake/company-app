@@ -12,40 +12,42 @@
       <tbody>
         <tr v-for="(document, i) in filteredList" :key="i">
           <td>{{document.name}}</td>
-          <td>{{document.date | formatDate}}</td>
+          <td width="30%">{{document.date | formatDate}}</td>
         </tr>
       </tbody>
       <tfoot>
         <td colspan="2">
-          <pagination/>
+          <section class="pagination">
+            <a class="fisrtPage" v-if="page != 1" @click="page= 1">&lt;&lt;</a>
+            <a class="backPage" v-if="page != 1" @click="page--">&lt;</a>
+            <span>{{page}} of {{pages}}</span>
+            <a class="fowardPage" v-if="page < pages" @click="page++">&gt;</a>
+            <a class="lastPage" v-if="page < pages" @click="page = pages">&gt;&gt;</a>
+          </section>
         </td>
       </tfoot>
     </table>
+    <p v-if="pages === 0">No results fould</p>
   </article>
 </template>
 
 <script>
-import pagination from './uiElements/pagination.vue';
 import axios from 'axios';
 import _ from 'lodash';
 
 export default {
   name: 'listResult',
-  components: {'pagination':pagination},
   props: ['startDate', 'endDate'],
   data() {
     return{
       documentList: [],
+      listLength: 0,
       currentPage: 1,
-      reverse: false,
-      sortActive: 'name'
-    }
-  },
-  filters: {
-    formatDate: (date) => {
-      const format = new Date (date);
-      //console.log(date);
-      return `${("0" + format.getDate()).slice(-2)}-${("0" + (format.getMonth() + 1)).slice(-2)}-${format.getFullYear()}`;
+      reverse: true,
+      sortActive: 'date',
+      page: 1,
+      perPage: 6,
+      pages: 0
     }
   },
   methods: {
@@ -53,27 +55,47 @@ export default {
       this.reverse = !this.reverse;
       this.sortActive = sort;
       this.documentList = _.orderBy(this.documentList, sort, this.reverse ? 'asc' : 'desc');
+    },
+    setPages() {
+      this.pages = Math.ceil(this.listLength / this.perPage);
+    },
+    paginate(item) {
+      let page = this.page;
+      let perPage = this.perPage;
+      let from = (page * perPage) - perPage;
+      let to = (page * perPage);
+      return item.slice(from, to);
     }
   },
-  mounted(){
-    let proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+  filters: {
+    formatDate: (date) => {
+      const year = date.substring(0,4);
+      const month = date.substring(5,7);
+      const day = date.substring(8,10);
+      return`${day}-${month}-${year}`;
+    }
+  },
+  created(){
+    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
     axios.get(`${proxyUrl}https://apply.crosslend.io/documents`)
     .then(response => {
-      this.documentList = response.data.documents;
-    })
-    .catch(error => {
-      console.log(error);
+      const list = response.data.documents.filter(item => {
+        return item.name.includes('.pdf') || item.name.includes('.docx')
+      });
+      this.documentList = list;
+      this.sortBy('date');
     })
   },
   computed: {
     filteredList() {
-      const list = this.documentList.filter(item => {
-        return item.name.includes('.pdf') || item.name.includes('.docx')
+      const filterDate = this.documentList.filter(item => {
+        return Date.parse(this.startDate) < Date.parse(item.date.toString()) || Date.parse(this.endDate) > Date.parse(item.date.toString());
       });
-      const filterDate = _.filter(list, item => Date.parse(item.date) > Date.parse(this.startDate) && Date.parse(item.date) < Date.parse(this.endDate));
       let condition = null;
-      this.startDate || this.endDate ? condition = filterDate : condition = list;
-      return condition;
+      this.startDate || this.endDate ? condition = filterDate : condition = this.documentList;
+      this.listLength = condition.length;
+      this.setPages();
+      return this.paginate(condition);
     }
   }
 }
